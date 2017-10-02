@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+var users = [{
+        name: 'Juan',
+        age: 39,
+        city: 'Ostermundigen',
+        job: 'IT'
+    },
+    {
+        name: 'Miguel',
+        age: 2.5,
+        city: 'Ostermundigen',
+        job: 'Cyier'
+    },
+    {
+        name: 'Sofia',
+        age: 0.5,
+        city: 'Ostermundigen',
+        job: 'Eater'
+    }
+];
+
+const songs = [{
+        name: 'Campanitas',
+        artist: 'Rosa Leon',
+        featuring: 'Torrebruno',
+        bestseller: false
+
+    },
+    {
+        name: 'Give it away',
+        artist: 'RHCP',
+        featuring: 'Flea',
+        bestseller: true
+
+    }
+];
+
+const songmarkup = `
+    	${songs.map( song => `<div>
+    			<p>
+    				${song.name} by ${song.artist} and ${song.featuring} ${displayConditional(song.bestseller)} 
+    			</p>
+    		</div>`).join('')
+	    }`;
+
+function displayConditional(isBestseller) {
+    return isBestseller ? "<b>HOTTTT</b>" : `<b>NOTTT HOT ${isBestseller}</b>`;
+}
+
+var bio = users.map(user => `
+			<h1> ${user.name + " (Mr)"} </h1>
+			<h2>\tis ${user.age/10}  </h2>
+			<div>years old and lives in ${user.city.toUpperCase()}. ${user.name}  
+			works in ${user.job} </div>
+			`);
+
+
+const names = `<ul>${users.map(u => `<li>${u.name}</li>`).join('')}</ul>`;
+
+bio.map(b => document.body.innerHTML += b);
+document.body.innerHTML += `<h1>Names</h1><div${names}</div>`;
+document.body.innerHTML += songmarkup;
+
+function inspect(strings, ...args)
+{
+    var torender = strings.reduce( (total,string,index) => total + string + ifPossible(index,args),"");
+    console.log(torender);
+    return torender;
+
+    function ifPossible(ind,params)
+    {
+        return params[ind]?  '<b contenteditable>' + params[ind] + '</b>' : '.';
+    }
+    
+}
+const myname = 'Juan';
+const mylastname = 'Huerta';
+const myage = 39;
+let mybio = inspect`I am ${myname} ${mylastname}, and I am ${myage} years old`;
+document.body.innerHTML += mybio;
+</script>
+
+</html>

@@ -1,0 +1,24 @@
+* var / let / const
+var variables are scoped to the function, no the scope!
+
+if(age>10)
+{
+	var aux = age * 10;
+}
+
+Aux is global! not scoped to {]} --> Use let to make it scoped only to block.
+let will throw error if declared twice, which is not the case with var.
+const are constants, cannot be updated, it will throw an error, but you can add properties!
+	// Modifying const?
+	const person = {
+		name: 'Juan'
+	}
+
+	//This will throw an error
+	person = {
+		name: 'Pedro'
+	}
+
+	// No error here
+	person.name = 'Pedro';
+
