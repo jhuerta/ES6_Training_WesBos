@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="bio"></div>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.2/purify.min.js"></script>
+<script>
+function sanitizeHTML() {
+    function sanitize(strings, ...values) {
+        var dirty = strings.reduce(
+            (prev, next, i) => `${prev}${next}${values[i] || ''}`, '');
+        return DOMPurify.sanitize(dirty);
+    }
+
+    const name = 'Juan';
+    const aboutMe = `Some text <img src="http://unsplash.it/100/100?random" onload="alert('you got hacked')">`;
+    const html = sanitize `<h3>${name}</h3>
+		<p>${aboutMe}</p>`;
+    const bio = document.querySelector('.bio');
+    bio.innerHTML = html;
+}
+
+//sanitizeHTML();
+
+function newStringMethods() {
+
+    const flight = '20-AC2323GH-JX';
+    console.log('Includes: ' + flight.includes('2323G'));
+    console.log('Ends with (simple): ' + flight.endsWith('JX'));
+    console.log('Ends with (limited): ' + flight.endsWith('GH',11));
+    console.log('Starts with (simple): ' + flight.startsWith('20-A'));
+    console.log('Starts with (after): ' + flight.startsWith('232',5));
+    const toRepeat = 'blah ...';
+    console.log(toRepeat.repeat(10));
+
+    
+
+}
+
+newStringMethods();
+</script>
+
+</html>

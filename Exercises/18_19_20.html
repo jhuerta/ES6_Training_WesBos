@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+
+<script>
+
+
+function swappingWithDestructuring()
+{
+    let inplayer = 'One';
+    let outplayer = 'Two';
+    console.log('in: ' + inplayer);
+    console.log('out: ' + outplayer);
+
+    [inplayer,outplayer] = [outplayer,inplayer];
+    console.log('in: ' + inplayer);
+    console.log('out: ' + outplayer);
+}
+
+
+function detrusturingArrays() {
+    const details = ['Juan',19,'Bern',2020,'one','two','three','four'];
+    const detailsArray = {a: 'A',b: 'B',c: 'B',d: 'D',e: 'E',f: 'F',g: 'G',h: 'H'};
+    const [name, age, city, year, ...others] = details;
+    const {a, b,  c, d, ...letters} = detailsArray;
+
+    
+
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log(d);
+    console.log(letters);
+    console.log(name);
+    console.log(age);
+    console.log(city);
+    console.log(year);
+    console.log(others);
+}
+
+
+function detrusturingSyntax() {
+
+    const person = {
+        Name: 'Juan',
+        Lastname: 'Huerta',
+        Age: 39,
+        City: 'Bern',
+        Courses: {
+            Morning: 'JS',
+            Afternoon: 'CS',
+            Night: 'HTML'
+        },
+        Links: {
+            FB: 'faceboo',
+            TW: 'twitter',
+            GM: 'gmail'
+        },
+        Morning: 'AM',
+        Afternoon: 'PM'
+    }
+
+    var {Name, Lastname, Age, City,Courses} = person;
+    var {Morning,Afternoon,Night} = Courses;
+    var {FB,TW,GM} = person.Links;
+
+    var {Morning: m, Afternoon: a} = person;
+
+    console.log(Name);
+    console.log(Lastname);
+    console.log(Age);
+    console.log(City);
+    console.log(Courses);
+
+    console.log(Morning);
+    console.log(Afternoon);
+    console.log(Night);
+    console.log(FB);
+    console.log(TW);
+    console.log(GM);
+    
+    console.log(a);
+    console.log(m);
+
+
+    var withDefaults = {width: 10, height: 50 };
+    var {width = 0, height = 0, color = 'blue'} = withDefaults;
+    console.log(width);
+    console.log(height);
+    console.log(color);
+
+}
+
+
+
+</script>
+
+</html>

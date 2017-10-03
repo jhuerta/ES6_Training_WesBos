@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+
+<script>
+
+
+function functionsWithDestructuring()
+{
+    function computeTotal({amount = 10, tip= 0.5, tax = 0.10} = {})
+    {
+
+        return amount* (1 + tip + tax);
+
+    }
+
+    console.log(computeTotal());
+}
+
+functionsWithDestructuring();
+
+</script>
+
+</html>

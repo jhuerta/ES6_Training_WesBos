@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="people">
+        <p>Juan</p>
+        <p>Pedro</p>
+        <p>Antonio</p>
+        <p>Luis</p>
+        <p>Enrique</p>
+        <p>Miguel</p>
+        <p>Alvaro</p>
+    </div>
+</body>
+<script>
+function ArrayFrom() {
+
+    var names = document.querySelectorAll('p');
+    console.log(names);
+
+    console.log(Array.from(names).map(p => p.textContent));
+    console.log(Array.from(names, p => p.textContent));
+}
+
+function usingReduce() {
+
+    function sumAll() {
+        return Array.from(arguments).reduce((prev, next) => prev + next, 0);
+    }
+
+    console.log(sumAll(1,3,5,7,9,11,13,17));
+}
+
+function usingArrayOf()
+{
+    let numberarray = Array.of(1,3,5,7,9,11,1,17);
+    console.log(numberarray);
+}
+
+function usingFind()
+{
+    var json = [
+        {code: "sdf453gv"},
+        {code: "df345ger"},
+        {code: "5645345g"},
+        {code: "fg345456"},
+        {code: "34bgn355"},
+        {code: "dg35fh56"},
+        {code: "dg35ngh5"},
+        {code: "bg345356"},
+        {code: "3g35he57"},
+        {code: "2335445g"},
+        {code: "7835th55"}
+    ];
+
+    function matches(j, value)
+    {
+        return j.code.includes(value);
+    }
+
+    console.log(json.find( j => matches(j,'35')));
+    console.log(json.filter( j => matches(j,'35')));
+    console.log(json.findIndex( j => matches(j,'35')));
+}
+
+function usingSomeEvery(){
+
+    const ages = [10,1,15,19,26,50,10];
+    console.log(ages.some(a => a>200));
+    console.log(ages.every(a => a>10));
+
+}
+
+usingSomeEvery();
+
+
+
+</script>
+
+</html>

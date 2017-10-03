@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+var iteratingOnObject = function() {
+
+    var tasks = {
+        Morning: 'watch',
+        Evening: 'Run',
+        Afternoon: 'Walk',
+        Night: 'Swim'
+    }
+
+    //tasks.forEach( t => console.log(t));
+
+    // for(const t of/in tasks)
+    //     {
+    //         console.log(t);
+    //     }
+
+    console.log('\n\nWith loop on keys')
+    for (const key of Object.keys(tasks)) {
+        console.log(`${key}:` + tasks[key]);
+    }
+
+    console.log('\n\nWith for in loop')
+    for (const index in tasks) {
+        //console.log(index);
+         console.log(`${index}:` + tasks[`${index}`]);
+
+    }
+}();
+
+var loops = function() {
+    var numbers = ['one', 'two', 'three', 'four'];
+    Array.prototype.Other = function() {
+        console.log('prototyp modified');
+    }
+    numbers.extraProperty = 'This should not appear';
+
+    console.log('\n-------------- Using for in')
+    for (const index in numbers) {
+        console.log('Index: ' + index);
+    }
+
+    console.log('\n-------------- Using for of entries')
+    for (const [index, value] of numbers.entries()) {
+        console.log(`${index}: ${value}`);
+    }
+
+    console.log('\n-------------- Using for of')
+    for (const value of numbers) {
+        console.log('Value: ' + value);
+    }
+
+
+    console.log('\n-------------- Using foreac')
+    numbers.forEach((myvalue, myindex) => console.log(myvalue, myindex));
+};
+
+function usingIterators() {
+    var numbers = ['One', 'Two', 'Three', 'Four', 'Five'];
+
+    var someNumbers = numbers.entries();
+    console.log(someNumbers);
+    console.log(someNumbers.next());
+
+    for (const [index, number] of someNumbers) {
+        console.log(`${index}: ${number}`);
+    }
+}
+
+function extenders() {
+
+    function computeNumbers(...numbers) {
+        var ns = Array.of(arguments);
+        console.log(arguments);
+        console.log(Array.of(arguments));
+
+        return ns.reduce((prev, next) => prev + next, 0);
+    }
+
+    var n = computeNumbers(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+    console.log(n);
+
+}
+</script>
+
+</html>
