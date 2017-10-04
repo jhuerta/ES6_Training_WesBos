@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+
+    function creatingPromises()
+    {
+
+        const p = new Promise((resolve,reject) => {
+            reject(Error('Im cool'));
+        });
+
+        p
+            .then(
+                data => {
+                    console.log(data);
+                })
+            .catch(
+                data => {
+                    console.error('Error Caught:' + data);
+                })
+        ;
+
+    }
+
+    creatingPromises();
+
+</script>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+</head>
+
+<body>
+
+
+</body>
+<script>
+
+function spreadIntoFunctions(){
+    var numbersToThree = ['one','two','three'];
+    var numbersFromThree = ['four','five','six'];
+    numbersToThree.push(...numbersFromThree);
+    console.log(numbersToThree);
+}
+
+function arrayIntoArguments()
+{
+    var name = ['Juan','Huerta'];
+    function greet(name, lastName)
+    {
+        console.log(`Hi ${name} ${lastName}`);
+    }
+
+    greet(...name);
+
+}
+
+arrayIntoArguments();
+
+
+
+
+</script>
+
+</html>

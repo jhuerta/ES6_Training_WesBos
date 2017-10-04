@@ -1,4 +1,5 @@
-var lis = Array.from(document.querySelectorAll('li'));
+
+var lis = Array.from(document.querySelectorAll("li"));
 
 var total = lis.map(value => minsToSeconds(value.dataset.time));
 console.log(total);

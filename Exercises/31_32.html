@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+</head>
+
+<body>
+
+
+</body>
+<script>
+
+function restParam(){
+
+
+    function convertRate(rate, ...amounts)
+    {
+        return rate * (amounts.reduce((prev, total) => prev + total,0))
+    }
+
+    var runner = ['Juan','Huerta',123456,5.5,2,6,8];
+    var [name, lastName, bidNo, ...kms] = [...runner];
+    console.log(name, lastName, bidNo,kms);
+
+    const firstName = 'Juan';
+    const surname = 'Huerta'
+    const age = 39;
+    const person = {firstName, surname, age};
+    console.log(person);
+}
+
+
+restParam();
+
+
+
+
+</script>
+
+</html>

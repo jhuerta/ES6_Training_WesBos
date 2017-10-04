@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+
+    function aboutPromises()
+    {
+        // http://wesbos.com/wp-json/wp/v2/posts
+
+        //fetch('http://wesbos.com/wp-json/wp/v2/posts');
+        var postPromise = fetch('http://wesbos.com/wp-json/wp/v2/posts11');
+
+        console.error('some error here');
+
+        postPromise
+            .then(vals => vals.json())
+            .then(json => console.log(json))
+            .catch((err) => {console.error('------------Error:' + err)});
+
+
+    }
+
+    aboutPromises();
+
+</script>
+
+</html>

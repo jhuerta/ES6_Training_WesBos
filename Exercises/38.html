@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function usingSymbols()
+{
+
+	const name = Symbol('Name');
+	const name2 = Symbol('Name');
+
+	//console.log(name);
+	//console.log(name == name);
+
+	var students = {
+		'Juan': {name: 'Juan',age:'39'},
+		'Miguel': {name: 'Miguel',age:'2.5'},
+		'Sofia': {name: 'Sofia',age:'0.5'},
+		'Miguel': {name: 'Juan Miguel',age:'15'},
+	}
+
+	var uniqueStudents = {
+		[Symbol('Juan')]: {name: 'Juan',age:'39'},
+		[Symbol('Miguel')]: {name: 'Miguel',age:'2.5'},
+		[Symbol('Sofia')]: {name: 'Sofia',age:'0.5'},
+		[Symbol('Miguel')]: {name: 'Juan Miguel',age:'15'},
+	}
+
+	//console.log(students);
+	//console.log(uniqueStudents);
+
+	for(var student in students)
+		{
+			console.log(student);
+		}
+
+			for(var student in uniqueStudents)
+		{
+			console.log(student);
+		}
+
+		console.log(uniqueStudents[Symbol['Sofia']]);
+		console.log(uniqueStudents[Symbol['Juan']]);
+
+		const syms = Object.getOwnPropertySymbols(uniqueStudents);
+		const data  = syms.map(sym => uniqueStudents[sym]);
+		console.log(data);
+
+
+
+}
+
+usingSymbols();
+
+</script>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function moreUsingPromises(id) {
+
+    function getAuthor() {
+        return new Promise((resolve) => {
+            setTimeout(() => resolve({
+                name: 'Juan',
+                age: 39,
+                city: 'Ostermundigen'
+            }), 500);
+        });
+    }
+
+    function getBooks() {
+        return new Promise((resolve) => {
+            setTimeout(() => resolve([{
+                title: 'IT in action',
+                pages: 390,
+                year: 1950
+            }, {
+                title: 'Super dooper',
+                pages: 10,
+                year: 1990
+            }, {
+                title: 'You are the best',
+                pages: 278,
+                year: 1935
+            }]), 2000);
+        });
+    }
+
+    Promise
+        .all([getAuthor(),getBooks()])
+        .then(r => console.log(r)); 
+
+
+
+
+}
+
+function multiplePromises()
+{ 
+    //http://wesbos.com/wp-json/wp/v2/posts
+    //data.ratp.fr/api/datasets/1.0/search/?q=paris
+
+    const postsPromise = fetch('http://wesbos.com/wp-json/wp/v2/posts');
+    const streetCarsPromise = fetch('http://data.ratp.fr/api/datasets/1.0/search/?q=paris');
+
+    Promise
+        .all([postsPromise,streetCarsPromise])
+        .then(responses => {
+            return Promise.all(responses.map(res => res.json()))
+        })
+        .then(responses => console.log(responses));
+
+
+}
+
+multiplePromises();
+
+</script>
+
+</html>
