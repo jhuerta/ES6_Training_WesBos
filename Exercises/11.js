@@ -1,4 +1,4 @@
-/* eslint-disable    jsx-a11y/href-no-hash */
+
 /* eslint-disable  max-len */
 
 function minsToSeconds(min) {
