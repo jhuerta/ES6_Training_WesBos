@@ -43,3 +43,72 @@ Use /* eslint-disable */ and /* eslint-enable */ to ignore completely blocks
 -- Install in sublime
 	Install sublimelinter
 	Install sublimelinter-contrib-eslint
+-- Add a hook to git to prevent errors with eslint
+
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+
+JAVASCRIPT MODULES
+
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+
+WEBPACKS
+------------------------------------------------------------------------------------------------
+
+Use and configure webpabck (with babel) to compile into a single package.
+Add it to package.json to run it with "npm run" ("scripts": { "build": "webpack --progress --watch"})
+-- Custom modules
+	Export:
+		Default: Import as any name (for main thing and only one default per module)
+		Named Export: Specific import (other issues)
+	export {varname as var_desired};
+	import {var_desired as varToImport}
+
+JSPM
+------------------------------------------------------------------------------------------------
+
+	-- Use other package bundler (jspm): The advantage is that it does no need any package, can be used with:
+  		<script src="https://jspm.io/system@0.19.js"></script>
+  	-- Installing quick server:
+  		> npm install browser-sync --save-dev
+  		> edit package.json:
+  			"scripts": {
+    						"server": "browser-sync start --directory --server --files '*js, *.html, *.css'"
+  			},
+  		> npm run server
+  	-- Using jspm.io you dont need to install npm, you can import npm with:
+  		import { sum,kebabCase} from 'npm:lodash';
+  	-- Simpler to setup
+  	-- NO PRODUCTION READY! (too slow)
+
+ES6 IN OLD BROWSERS
+------------------------------------------------------------------------------------------------
+
+	-- Use babel (https://babeljs.io/): As a javascript compiler. Compile new JS into current browser compatible javascript
+	-- init npm
+	-- install babel-cli
+	-- Plugins: Javascript featues, so it translate from ES6 to ES5
+	-- Preset: Collection of plugins
+	-- Use babel-preset-env to determine the ES to use based on the browsers we are targetting. Install it via npm and update package.json with:
+		    "dependencies": {
+		        "babel-cli": "^7.0.0-beta.2",
+		        "babel-preset-env": "^2.0.0-beta.2"
+		    },
+		    "babel": {
+		        "presets": [
+		            [
+		                "env", {
+		                    "targets": {
+		                        "browsers": ["last 2 versions", "safari >= 8"]
+		                    }
+		                }
+		            ]
+		        ]
+		    }
+    -- Use babel plugins if needed to test new things
+
+POLYFILL
+------------------------------------------------------------------------------------------------
+
+Since babel only works on new syntax (not in new methods), the new methods added into ES needs to be pollyfilled!

@@ -2,3 +2,4 @@
 /ES6_Files_WesBos/*
 /node_modules/*
 /Exercises/node_modules/*
+*/**/node_modules/*
