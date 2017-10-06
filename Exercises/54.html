@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+	</body>
+	
+	
+	<script>
+
+		class MovieCollection extends Array {
+			constructor(name, ...movies)
+			{
+				super(...movies);
+				this.name = name;
+			}
+
+			add(movie){
+				this.push(movie);
+			}
+
+			ls()
+			{
+				for(const m of this)
+					{
+						console.log(`${m.name} - ${m.stars}`);
+					}
+			}
+
+			topRated(limit = 10)
+			{
+				console.log(this.nombre);
+				var sorted = this.sort( (a,b) => (a.stars > b.stars ? -1:1));
+				console.log(sorted);
+				return sorted.slice(0,limit);
+			}
+		}
+
+		const collection = new MovieCollection('My Collection',
+			{name: 'One', stars: 1},
+			{name: 'Two', stars: 2},
+			{name: 'Three', stars: 3},
+			{name: 'Four', stars: 4},
+			{name: 'Five', stars: 5}
+		);
+
+		console.log(collection);
+
+		collection.add({name:'Six',stars:6});
+
+		collection.ls();
+		var topRated = collection.topRated(3);
+		console.table(collection);
+		console.table(topRated);
+
+		
+	</script>
+</html>

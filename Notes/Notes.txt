@@ -112,3 +112,69 @@ POLYFILL
 ------------------------------------------------------------------------------------------------
 
 Since babel only works on new syntax (not in new methods), the new methods added into ES needs to be pollyfilled!
+Since for some browsers there is no need to polyfill, we can just use some tools to determine this short of things:
+- Babel Polyfill: import "babel-polyfill" this will polyfill ALL for the browsers, it can be kinda overkilled
+- Polyfill.io: Add the script tag, and it will make it for you depending on the browser making the call:
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+CLASSES IN ES6
+------------------------------------------------------------------------------------------------
+
+		// IMPLEMENTATION I
+		class CLASSNAME {
+			constructor(arg1, arg2) {
+				this.arg1 = arg1;
+				this.arg2 = arg2;
+			}
+			method_1() {
+				// method_1 implementation
+			}
+
+			static STATIC_METHOD(){
+				//static method implemeantion
+			}
+
+			get A_GETTER(){
+				//retur this.a_getter;
+			}
+
+			set A_GETTER(value){
+				return this.a_getter;
+			}			
+		}
+
+		// IMPLEMENTATION II
+		const CLASSNAME = class {
+			constructor(arg1, arg2) {
+				this.arg1 = arg1;
+				this.arg2 = arg2;
+			}
+
+			method_1() {
+				// method_1 implementation
+			}
+		}
+
+		// Extending (inhereting) classes
+
+		class CHILD_CLASS extends PARENT_CLASS
+		{
+			constructor(arg_1, new_arg)
+			{
+				super(arg_1);
+				this.new_arg = brenew_arged;
+			}
+
+			existing_method(arg)
+			{
+				// implemenation
+				return super.existing_method(arg);
+				
+			}
+
+			new_method()
+			{
+				//implementation
+			}
+
+		}

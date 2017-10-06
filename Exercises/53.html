@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+	</body>
+	
+	
+	<script>
+		class Animal {
+			constructor(name) {
+				this.name = name;
+				this.thirst = 100;
+				this.belly = [];
+			}
+
+			drink() {
+				this.thirst -= 10;
+				return this.thirst;
+			}
+			
+			eat(food)
+			{
+				this.belly.push(food);
+				return this.belly;
+			}
+		}
+
+		class Dog extends Animal
+		{
+			constructor(name, breed)
+			{
+				super(name);
+				this.breed = breed;
+			}
+
+			eat(food)
+			{
+				return super.eat(`${food}_none`);
+				
+			}
+
+			description()
+			{
+				return `${this.name} is a dog of type ${this.breed} and has eaten ${this.belly.join(',')}`
+			}
+
+		}
+
+		const tobby = new Dog('Tobby','Brown and small');
+		console.log(tobby.drink());
+		console.log(tobby.description());
+		console.log(tobby.eat('meat'));
+		console.log(tobby.eat('lettuce'));
+		console.log(tobby.description());
+
+
+		const rhino = new Animal('Rhiney');
+		console.log(rhino.drink());
+		console.log(rhino.eat('burger'));
+		console.log(rhino.eat('leaves'));
+		console.log(rhino.eat('coke'));
+		console.log(rhino.drink());
+		console.log(rhino.drink());
+
+		
+	</script>
+</html>

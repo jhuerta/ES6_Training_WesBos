@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+	</body>
+	
+	
+	<script>
+		class Perro {
+			constructor(name, breed) {
+				this.name = name;
+				this.breed = breed;
+			}
+			bark() {
+				return `Guau guau! Soy ${this.name}, del tipo ${this.breed}`;
+			}
+			cuddle() {
+				return `Eres estupendo! (de parte de ${this.name})`;
+			}
+			static info(){
+				return 'Los PERRROSSS son esto y lo otro ....'
+			}
+
+			get description(){
+				return `${this.name} (${this.breed})`
+			}
+
+			set age(value){
+				this.years = value;
+			}
+
+			get age(){
+				return this.years;
+			}
+
+			
+		}
+
+		const Gato = class {
+			static info(){
+				return 'Los gatos son esto y lo otro ....'
+			}
+
+			constructor(name, breed) {
+				this.name = name;
+				this.breed = breed;
+			}
+			meouw() {
+				return `Miaaaau miaaaaau miaggguuu ! Soy ${this.name}, del tipo ${this.breed}`;
+			}
+			grudge() {
+				return `Grrrrrrrrrrrrrrr (de parte de ${this.name})`;
+			}
+		}
+
+
+		var amparo = new Perro('amparo','peluda');
+		var tobias = new Perro('tobias','pequegno');
+		console.log(amparo.bark());
+		console.log(amparo.cuddle());
+		console.log(tobias.bark());
+		console.log(tobias.cuddle());
+		console.log('==========  USING GETTER AND SETTERS =========== ');
+		console.log(tobias.description);
+		tobias.age = 999;
+		console.log(tobias.age);
+		console.log('====================================');
+
+		var ana = new Gato('ana','gris perla');
+		var ramon = new Gato('ramon','charlatan');
+		console.log(ana.meouw());
+		console.log(ana.grudge());
+		console.log(ramon.meouw());
+		console.log(ramon.grudge());
+		console.log('================================================');
+		console.log(Gato.info());
+		console.log(Perro.info());
+
+		
+	</script>
+</html>

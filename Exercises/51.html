@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+
+
+
+	</body>
+
+	
+	
+	<script>
+		function Dog(name, breed)
+		{
+			this.name = name;
+			this.breed = breed;
+		}
+
+		Dog.prototype.bark = function() {
+			return `Bark bar! I'm ${this.name}`;
+		}
+
+		const puppy = new Dog('Toby','Brown and Hairy');
+
+		const doggy = new Dog('Sugus','Small and black');
+
+		console.log(puppy.bark());
+		console.log(doggy.bark());
+		console.log(puppy);
+		
+	</script>
+</html>
