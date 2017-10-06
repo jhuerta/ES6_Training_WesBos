@@ -8,6 +8,7 @@ if(age>10)
 
 Aux is global! not scoped to {]} --> Use let to make it scoped only to block.
 let will throw error if declared twice, which is not the case with var.
+
 const are constants, cannot be updated, it will throw an error, but you can add properties!
 	// Modifying const?
 	const person = {
@@ -22,3 +23,23 @@ const are constants, cannot be updated, it will throw an error, but you can add 
 	// No error here
 	person.name = 'Pedro';
 
+
+ESLint
+------------------------------------------------------------------------------------------------
+Use eslint (install with npm)
+use style guid from airbnb: 
+	https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb
+Rules can be set as errors (0) or warning (1)
+Some options includes argsIgnorePattern (depends on the rule)
+Use a .eslintrc.js global in Users folder and maybe, a custom one locally
+Use /* globals var_name*/ for global variables so it does not come as error in eslint
+Use /* eslint-disable  max-len */ to disable specific rules in the file
+Use /* eslint-disable  max-len */ and /* eslint-enable  max-len */ to disable only per line
+Use /* eslint-disable */ and /* eslint-enable */ to ignore completely blocks
+-- ESLint Plugin
+	ESLint html (to inspect inline javascript in javascript): 
+		- Add "plugins" : ["html"]
+		- Install via npm
+-- Install in sublime
+	Install sublimelinter
+	Install sublimelinter-contrib-eslint

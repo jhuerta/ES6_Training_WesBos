@@ -5,8 +5,9 @@ module.exports = {
         "jquery": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    "extends": "airbnb",
     "rules": {
          "no-console":["error", { allow: ["log","warn", "error"] }]
-    }
+    },
+    "plugins" : ["html"]
 };

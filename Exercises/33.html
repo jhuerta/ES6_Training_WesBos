@@ -9,67 +9,63 @@
 <body>
 </body>
 <script>
+
+
+
 function literalUpgrades() {
+  const firstName = 'Juan';
+  const surname = 'Huerta';
+  const age = 39;
+  const person = {
+    firstName,
+    lastname: surname,
+    age,
+    open() {
+      return 'its open';
+    },
+    close() {
+      return 'its close';
+    },
+  };
+  console.log(person);
+  console.log(person.open());
+  console.log(person.close());
 
-
-    const firstName = 'Juan';
-    const surname = 'Huerta'
-    const age = 39;
-    const person = {
-        firstName,
-        lastname: surname,
-        age,
-        open: function() {
-            return 'its open';
-        },
-        close() {
-            return 'its close';
-        }
+  function createObject(k, ...vals) {
+    return {
+      [k]: vals[0],
+      [`${k}Value`]: vals[1],
     };
-    console.log(person);
-    console.log(person.open());
-    console.log(person.close());
-
-    function createObject(k, ...vals) {
-            return {
-                [k]: vals[0], 
-                [`${k}Value`]: vals[1]
-            };
-    }
+  }
 
 
+  let key = 'brand';
+  const value = 'BMW';
+  const car = {
+    [key]: value,
+    [`${key}Value`]: 'otherValue',
+  };
 
-    var key = 'brand';
-    var value = 'BMW';
-    var car = {
-        [key]: value,
-        [`${key}Value`]: 'otherValue'
-    }
+  console.log(car);
+  key = 'marca';
+  car[key] = 'bemeta';
+  console.log(car);
 
-    console.log(car);
-    key = 'marca';
-    car[key] = 'bemeta';
-    console.log(car);
+  console.log(createObject('myKey', 'one', 'two'));
 
-    console.log(createObject('myKey','one','two'));
+  const keys = ['one', 'two', 'three'];
+  const values = [1, 2, 3];
+  console.log(keys);
+  console.log(values);
+  const numbers = {
+    [keys.shift()]: values.shift(),
+    [keys.shift()]: values.shift(),
+    [keys.shift()]: values.shift(),
+  };
 
-    var keys = ['one','two','three'];
-    var values = [1,2,3];
-    console.log(keys);
-    console.log(values);
-    var numbers = {
-        [keys.shift()]:  values.shift(),
-        [keys.shift()]:  values.shift(),
-        [keys.shift()]:  values.shift()
-    };
-
-    console.log(numbers);
-    console.log(keys);
-    console.log(values);
-
-
-
-
+  console.log(numbers);
+  console.log(keys);
+  console.log(values);
 }
 
 
