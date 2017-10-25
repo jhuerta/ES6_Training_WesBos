@@ -3,3 +3,4 @@
 /node_modules/*
 /Exercises/node_modules/*
 */**/node_modules/*
+.DS_Store
