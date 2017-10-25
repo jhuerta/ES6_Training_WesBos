@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function advanceSet()
+{
+    var originalQueu = new Set(['juan','miguel','sofia','hasmin']);
+    
+    var runningQueue = originalQueu.values();
+    console.log('Current Queu is: ');
+    console.log(runningQueue);
+
+    console.log('Next customer is served')
+    console.log(runningQueue.next().value)
+    
+
+    console.log('People is coming');
+    originalQueu.add('Maria');
+    originalQueu.add('Guillermo');
+
+    console.log('Current Queu is: ');
+    console.log(runningQueue);
+    
+    console.log('Next customer is served')
+    console.log(runningQueue.next().value)
+    console.log('Current Queu is: ');
+    console.log(runningQueue);
+
+}
+
+advanceSet();
+
+
+
+
+
+</script>
+
+</html>

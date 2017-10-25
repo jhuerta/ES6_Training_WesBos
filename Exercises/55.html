@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function basicOnGenerators() {
+    function* getNumbers() {
+        yield 1;
+        yield 2;
+        yield 3;
+        yield 4;
+    }
+    var number = getNumbers();
+    console.log(number.next());
+    console.log(number.next());
+    console.log(number.next());
+    console.log(number.next());
+    console.log(number.next());
+}
+
+function yieldOnIterate() {
+    var names = [
+        { Name: 'Juan', Age: 39 },
+        { Name: 'Miguel', Age: 3 },
+        { Name: 'Sofia', Age: 1 },
+    ];
+
+    function* loop(arr)
+    {
+
+    	for(var a of arr)
+    	{
+    		yield a;
+    	}
+
+    }
+
+    var loopValue = loop(names);
+    console.log(loopValue.next().value);
+    console.log(loopValue.next().value);
+    console.log(loopValue.next().value);
+}
+
+
+
+
+</script>
+
+</html>

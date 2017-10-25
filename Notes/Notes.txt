@@ -113,12 +113,29 @@ POLYFILL
 
 Since babel only works on new syntax (not in new methods), the new methods added into ES needs to be pollyfilled!
 Since for some browsers there is no need to polyfill, we can just use some tools to determine this short of things:
-- Babel Polyfill: import "babel-polyfill" this will polyfill ALL for the browsers, it can be kinda overkilled
+- Babel Polyfill: import "babel-polyfill" in your module. This will polyfill ALL for the browsers, it can be kinda overkilled. Useful if you run JS without the browser
 - Polyfill.io: Add the script tag, and it will make it for you depending on the browser making the call:
 	<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 
 CLASSES IN ES6
 ------------------------------------------------------------------------------------------------
+
+		// Vanilla JS
+
+		function CLASSNAME(arg1, arg2)
+		{
+			this.arg1 = arg1;
+			this.arg2 = arg2;
+		}
+
+		CLASSNAME.prototype.NewMethod = function(a1, a2)
+		{
+			// NOTICE THE KEYWORD PROTOTYPE
+		 	// ... bla bla bla
+		}
+
+		const instance_1 = new CLASSNAME('a','b');
+		const instance_2 = new CLASSNAME('c','d');
 
 		// IMPLEMENTATION I
 		class CLASSNAME {
@@ -130,6 +147,7 @@ CLASSES IN ES6
 				// method_1 implementation
 			}
 
+			// STATIC ONLY WORKS ON THE CLASS ITSELF
 			static STATIC_METHOD(){
 				//static method implemeantion
 			}
@@ -162,6 +180,7 @@ CLASSES IN ES6
 			constructor(arg_1, new_arg)
 			{
 				super(arg_1);
+				//now you can use "this" from the parent 
 				this.new_arg = brenew_arged;
 			}
 
@@ -178,3 +197,136 @@ CLASSES IN ES6
 			}
 
 		}
+
+		// Extending an exising class in JS
+
+		class MovieCollection extends Array {
+			constructor(collectionName, ){
+
+			}
+		}
+
+GENERATOR
+---------------------------
+	function* functionName*()
+	{
+		yield 'FirstCall'; // return now (kind of milking)
+		yield 'SecondCall'; // return once is called again
+		yield 'ThirdCall'; // return once is called agian
+	}
+
+	var result = functionName();
+	result.next();
+	result.next();
+	result.next();
+
+	* INTERESTING USE TO AVOID CALLBACK HELLS:
+	function ajax(url)
+    {
+        fetch(url).then(data => data.json()).then(data => dataGenerator.next(data));
+    }
+
+    function* steps()
+    {
+		// The different calls below depend one on each other and they will wait one to call the following one   
+        var name = yield ajax('https://getinfofromuser');
+        var street = yield ajax(`https://getstreetfromuser/${name}`);
+        var pictures = yield ajax(`https://getpicturesfromstreet/${street}`);
+    }    
+    
+    var dataGenerator = steps();
+    dataGenerator.next();
+
+    * USING LOOP FOR OF INSTEAD OF CALLING CONSTANTLY NEXT
+
+    function* values()
+    {
+	    yield 1;
+	    yield 2;
+	    yield 3;
+    }
+
+    var value = values();
+    for(var val of value)
+    {
+    console.log(val);
+    }
+
+PROXIES
+---------------------------
+	var varName = new {abc:'abc'};
+	var myNewObject = new Proxy({}, {
+		get(target,key,value){},
+		set(target,key,value){},
+		...
+	})
+	Allows to sit in the middle to validate, clean or whatever
+
+
+SET
+---------------------------
+	const people = new Set(['val1','val2','val3','val4']);
+    people.size;
+    people.add('value');
+    people.add('value'); // It wont add (it will be unique), but no error thrown
+    people.add('value'); // It wont add (it will be unique), but no error thrown
+    people.add('value'); // It wont add (it will be unique), but no error thrown
+    people.delete('value');
+    people.keys();
+    people.values();
+    people.entries();
+    people.clear();
+    people.has('val1');
+    for(var person of people)
+    {
+    	// use for loop as iterator
+    }
+
+    people.size;
+
+    One can loop through the set or throug the iterator (set.values)
+    While you add values to the set, the values are automatically 'refreshed' and the cursor remains on the next value
+    const people = new Set(['u1','u2','u3','u4']);
+    const peopleRunning = people.values();
+    peopleRunning.next().value;
+    peopleRunning.next().value;
+    people.add('u5');
+    people.add('u6');
+    people.add('u7');
+
+WEAKSET
+---------------------------
+	The difference with a normal set is that:
+		- It only contains objects ({key:'value'})
+		- There is no iterator (for ... of)
+		- There is no clear() method
+		- It can cause problems when removing items, but also it helps to keep track of deleted elements
+
+		Only possible is useful when having problems for memory leaks.
+
+MAPS
+---------------------------
+	Similar to SET but has key and value
+	const dogs = new Map();
+	dogs.set('Snickers',3);
+	dogs.set('Bulldog',2);
+	dogs.set('Hugo',10);
+	dogs.get('Hugo');
+	dogs.has('Hugo');
+	dogs.delete('Hugo');
+	dogs.forEach((val,key) => console.log(val,key));
+	for(const [key,val] of dogs)
+	{console.log(key,val);}
+
+	* Very useful because the key can be an object (like a DOM object!)
+
+	const clicksCounts = new Map();
+	const buttons = document.querySelectorAll('button'); // getting all buttons in the page
+	buttons.forEach(btn => {
+	clickCounts.set(btn,0); // Filling the map. The KEY is a dom object!
+	btn.addEventListener('click',function(){
+		const val = clickCounts.get(this); // Retrieving the element using the DOM object!
+		clickClounts(this,val + 1);
+	});
+
+	})

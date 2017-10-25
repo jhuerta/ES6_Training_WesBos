@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+    const person = {name:'Juan',age:'29'};
+    const personProxy = new Proxy(person,{
+        get(target, name){
+            console.log(`Asking for target ${target} and name ${name}`);
+            console.log('Asking for target and name',target,name);
+        },
+        get(target, name){
+            console.log(`Setting for target ${target} and name ${name}`);
+            console.log('Setting for target and name',target,name);
+            return 'the name'
+        },
+    });
+    console.log('Setting values');
+    personProxy.name = 'Miguel';
+    personProxy.age = '3';
+    var theName = personProxy.name;
+    var theAge = personProxy.age;
+    console.log(theName, theAge);
+    console.log('END -- Setting values');
+
+
+</script>
+
+</html>

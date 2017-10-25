@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function basicSet()
+{
+        const people = new Set();
+    console.log(people.size);
+    people.add('Juan');
+    people.add('Miguel');
+    people.add('Sofia');
+    console.log(people.size);
+    console.log(people);
+    people.delete('Miguel');
+    console.log(people.size);
+    console.log(people);
+    console.log(people.values);
+    var peopleIterator = people.values;
+    for(var person of people)
+    {
+        console.log(person);
+    }
+}
+
+basicSet();
+
+
+
+
+
+</script>
+
+</html>

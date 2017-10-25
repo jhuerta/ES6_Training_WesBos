@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function basicOnGenerators() {
+    function* getNumbers() {
+        yield 1;
+        yield 2;
+        yield 3;
+        yield 4;
+    }
+    var number = getNumbers();
+    console.log(number.next());
+    console.log(number.next());
+    console.log(number.next());
+    console.log(number.next());
+    console.log(number.next());
+}
+
+function yieldOnIterate() {
+    var names = [
+        { Name: 'Juan', Age: 39 },
+        { Name: 'Miguel', Age: 3 },
+        { Name: 'Sofia', Age: 1 },
+    ];
+
+    function* loop(arr) {
+
+        for (var a of arr) {
+            yield a;
+        }
+
+    }
+
+    var loopValue = loop(names);
+    console.log(loopValue.next().value);
+    console.log(loopValue.next().value);
+    console.log(loopValue.next().value);
+}
+
+function callBackHell() {
+
+
+    function ajax(url) {
+        console.log(`calling .... ${url}`);
+
+        fetch(url).then(data => data.json()).then(data => step.next(data));
+    }
+
+    function getFollowerUrl(u) {
+        return u.followers_url;
+    }
+
+    function getFirstFollower(u) {
+        return u[0].login;
+    }
+
+    function* steps() {
+        console.log('Getting User');
+
+        var user = yield ajax('https://api.github.com/users/jhuerta');
+
+        var followerURL = getFollowerUrl(user);
+
+        var followers = yield ajax(followerURL);
+        var firstFollower = getFirstFollower(followers);
+        var followerInfo = yield ajax(`https://api.github.com/users/${firstFollower}`);
+        console.log(followerInfo);
+    }
+
+    var step = steps();
+    step.next();
+
+
+}
+
+function forInsteadOfNext() {
+    function* values() {
+        yield 1;
+        yield 2;
+        yield 3;
+    }
+
+    var value = values();
+    for (var val of value) {
+        console.log(val);
+    }
+
+    // var value2 = values();
+
+    // var val2 = false;
+    // while (!val2) {
+    //     var thisVal = value2.next();
+    //     console.log(thisVal.value);
+    //     val2 = thisVal.done;
+    
+    // }
+}
+
+
+forInsteadOfNext();
+</script>
+
+</html>
