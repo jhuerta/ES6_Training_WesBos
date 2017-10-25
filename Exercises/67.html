@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function nativepromises()
+{
+    const response = fetch('https://api.github.com/users/jhuerta');
+    response.then(r => {return r.json()})
+            .then(r => console.log(r))
+            .catch(err => console.error(err));
+
+    
+
+
+
+
+}
+
+nativepromises();
+
+
+
+
+
+</script>
+
+</html>

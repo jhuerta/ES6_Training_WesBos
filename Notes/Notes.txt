@@ -318,7 +318,7 @@ MAPS
 	for(const [key,val] of dogs)
 	{console.log(key,val);}
 
-	* Very useful because the key can be an object (like a DOM object!)
+	* Very useful because the KEY CAN BE AN OBJECT (like a DOM object!)
 
 	const clicksCounts = new Map();
 	const buttons = document.querySelectorAll('button'); // getting all buttons in the page
@@ -330,3 +330,43 @@ MAPS
 	});
 
 	})
+
+ASYNC AND AWAIT
+---------------------------
+Use await over a promise to wait for the promise to return. This only can be used on async functions
+async function demo()
+{
+	var name = await fetch('http://getname.com');
+	var info = await fetch(`http://getinfo.com/${name}`);
+}
+// Promise.all() will take an array of promises and it you can make it wait until all of them are completed:
+	 const responses = await Promise.all([u1,u2,u3]);
+
+* PROMISIFY: A method that is based on callback, can be turned into a promise, which in turns, can be used with await, making it sincronous.
+
+
+padStart AND padEnd (on strings)
+---------------------------
+Append/prepend a number of characters until it reaches a number of characters.
+
+TRAILING COMMA (adding a comma at the end)
+---------------------------
+Now it is possible to write this:
+const names = ['1','2','3',]
+const people = { 	juan: '38',
+					miguel: '3',
+					sofia: '1',
+				}
+
+INCLUDES
+---------------------------
+New method on array to know if the array contains a value:
+['a','b','c'].includes('a');
+
+EXP METHOD (**)
+---------------------------
+2 ** 3 is 2 to the 3 (2*2*2)
+
+Object .entries() and .values() 
+---------------------------
+const people = {juan: '39',miguel: '3', sofia:'1'}

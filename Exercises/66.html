@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function mapsandwekseat()
+{
+    let dog1 = {name: 'Bobby'};
+    let dog2 = {name: 'Ted'};
+
+    let strong = new Map();
+    let weak = new WeakMap();
+
+    strong.set(dog1,'Bobby is the best');
+    weak.set(dog2,'Ted is the best');
+
+    console.log(strong);
+    console.log(weak);
+
+    dog1 = null;
+    dog2 = null;
+
+    setTimeout(function() {
+            console.log(strong);
+    console.log(weak);
+    strong.forEach((val,key) => console.log(val,key));
+
+    console.log('The key has been nulled down but the map still shows the key and the value, not the case with weakmap');
+    console.log(strong[dog1]);
+}, 5000);
+
+    
+
+
+
+
+}
+
+mapsandwekseat();
+
+
+
+
+
+</script>
+
+</html>

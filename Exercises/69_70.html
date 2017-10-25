@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function asyncawait() {
+
+    function breath(amount) {
+        return new Promise((resolve, reject) => {
+            if (amount < 500) {
+                reject(`${amount} is too small of a value`);
+            }
+            setTimeout(() => resolve(`Done for ${amount} ms`), amount);
+
+        });
+
+    }
+
+    async function go() {
+        try {
+
+            var r = await breath(700);
+            console.log(r);
+            r = await breath(800);
+            console.log(r);
+
+            r = await breath(100);
+            console.log(r);
+
+
+            var info = await (await fetch('https://api.github.com/users/jhuerta')).json();
+            console.log(info);
+
+        } catch (err) {
+            console.error(err);
+        }
+
+        //console.log(info.json().PromiseValue);
+    }
+
+    function cathErrors(fn,errorHandler) {
+        return function(...name) {
+            return fn(...name).catch(errorHandler);
+        }
+    }
+
+    async function dealingwithexecptions(myargument, otherargument) {
+    	console.log(`User has passed ${myargument}`);
+    	console.log(`Second argument ${otherargument}`);
+        var r = await breath(700);
+        console.log(r);
+        r = await breath(800);
+        console.log(r);
+
+        r = await breath(100);
+        console.log(r);
+
+        var info = await (await fetch('https://api.github.com/users/jhuerta')).json();
+        console.log(info);
+
+    }
+
+    function handlethis(err)
+    {
+    	console.log('An error has beenfound');
+    	console.log(err);
+    }
+
+    const wrappederrors = cathErrors(dealingwithexecptions, handlethis);
+    wrappederrors('testing this', 'second argment');
+
+
+
+
+
+
+}
+asyncawait();
+</script>
+
+</html>

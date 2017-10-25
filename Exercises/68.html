@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function customsyncpromises()
+{
+    function breath(amount)
+    {
+    	return new Promise((resolve,reject) => {
+    		if(amount < 500)
+    		{
+    			reject(`${amount} is too small of a value`);
+    		}
+    		setTimeout(() => resolve(`Done for ${amount} ms`), amount);
+
+    	});
+
+    }
+
+    breath(900).then(res => {
+    	console.log(res);
+    	return breath(600);
+    }).then(
+    res => {
+    	console.log(res);
+    	return breath(700);
+    }).then(
+    res => {
+    	console.log(res);
+    	return breath(100);
+    }).then(
+    res => {
+    	console.log(res);
+    	return breath(400);
+    }).then(
+    res => {
+    	console.log(res);
+    	return breath(500);
+    }).then(res => {
+    	console.log(res);
+    }).catch( err => {
+    		console.log(err);
+    });
+
+
+
+
+}
+
+customsyncpromises();
+
+
+
+
+
+</script>
+
+</html>

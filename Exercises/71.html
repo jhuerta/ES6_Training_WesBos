@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+async function multiplepromises()
+{
+    const u1 = fetch('http://api.github.com/users/jhuerta').then(r => r.json());
+    const u2 = fetch('http://api.github.com/users/wesbos').then(r => r.json());
+    const u3 = fetch('http://api.github.com/users/stolinski').then(r => r.json());
+    const responses = await Promise.all([u1,u2,u3]);
+    console.log(responses);
+}
+
+async function multiplepromises2()
+{
+    const u1 = fetch('http://api.github.com/users/jhuerta');
+    const u2 = fetch('http://api.github.com/users/wesbos');
+    const u3 = fetch('http://api.github.com/users/stolinski');
+    const responses = await Promise.all([u1,u2,u3]);
+    var rJsons = responses.map( r =>   r.json());
+    var [r1,r2,r3] = await Promise.all( rJsons);
+    console.log(r1,r2,r3);
+}
+
+multiplepromises2();
+
+
+
+
+
+</script>
+
+</html>
