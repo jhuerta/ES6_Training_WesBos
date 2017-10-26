@@ -1,0 +1,98 @@
+------------------------------------------------------
+NOTES SUMMARY
+------------------------------------------------------
+
+** TIPS **
+	> console.table()
+	> console.error
+	> an_array.map((o,i) => {});
+	> an_array.filter(o => o> VALUE);
+	>> Object.freeze(object)
+		It will prevent you from modifying an object property
+		const person = {name: 'Juan'}; 
+		person.name = 'JuanH'; //(this is allowed)
+		Object.freeze(person);
+		person.name = 'JuanHB';// (this is not allowed)
+	> document.querySelector('. / #');
+	> any_element.addEventListener('the_event_like_click', function(){});\
+	> any_element.classList.toggle('class_name')
+	> any_element.classList.contains('class_name')
+	> any_element.classList.contains('class_name')
+	> Use Array.from(querySelectorAll) to convert a NodeList that comes from a document.querySelectorAll
+
+** VAR / CONST / LET **
+	- var can be used before they are defined, but they are UNDEFINED, it wont throw an error
+	- let/const will throw an error if used before being declared 
+	- var is functon scoped, NOT block scoped ( by {} ) !!!!!
+	- IIFE
+		(function(){
+			var name = 'abc'; // THIS NAME IS NOT USED OUTSIDE OF THIS FILE
+							  // IT IS CONSTRAINED TO THIS FUNCTION	
+		})();
+
+		{
+			let letters = 'abc'; 
+			const other_letters = 'abc'; // these variables dont leak outside {}
+		}
+	- you can declare several times the same variable with var!!. 
+	- let wont allow you to have the same variable name declared twice
+	- let/const are scoped to {}  (that is, blocked scope)
+	- use let inside loops, as they are blocked scope regardless of the content inside (time, ajax blocks)
+	- const cant be changed, but it is not immutable:
+		> const person = {name: 'Juan'}; person.name = 'JuanH'; (this is allowed)
+
+** ARROW FUNCTIONS **
+	- They have implicit return and does not rebind THIS.
+	- this inside the arrow function is inherited from the parent. 
+		> Beware when using 'this' as the element in use
+		> It will come handy to not use that (instead of this)
+	- function(){//blabla} ---> () => {//blabla} ---> (arg1, arg2) ==> {//blabla with arg1 arg2}
+	- Implicit return: If not using {} in one liner it will return that line
+		() => names; // names will be returned
+		// Put names inside () if its an object like ()
+	}
+	- They can be assigned to variables:
+		const saymyname = (name) => { alert(`Hellow $(name)`)};
+		saymyname('Juan');
+	- Not to use arrow functions when:
+		> When you need to use 'this'
+		> When you need to add a method bind to an object (and therefore you will have to use 'this')
+		> If you need to use the keyword 'arguments'. Arguments is a keyword in 'functions' that returns an array with all the arguments passed. This keyword does not exist for arrow functions
+
+** DEFAULT ARGUMENTS IN FUNCTIONS
+	- function sayaword(anyword = 'Hello World!') {}
+	- It is possible to use/pass undefined and javascript will use the default
+		function computenumbers(first = 1,second = 2,third = 3){//blblbla}
+		computenunbers(10,undefined, 25); // second will have the value of 2
+
+** TEMPLATE STRINGS
+	- `This is an string with a ${variable}`
+	- Multilines:
+		> Previously we had to use the \ charactor for multiline. With `` you can just enter a new line
+		const multiline=` first line
+							second line
+						`;
+		const previously = 'First line \
+							Second line'
+	- It is possible to write js code inside ${} and nest ``
+		const dogs = [{name:'Ted',age: 5},{name:'Bob',age: 3},{name:'Sugus',age: 2}];
+		const markup = `
+			<ul>
+			${dogs.map(dog => `
+				<li>
+				${dog.name} (${dog.age*6})
+				</li>
+				`)}
+			</ul>
+		`;
+	- Othe example nesting and writing JS code
+		const dog_a = {name:'Ted',owner:'Juan'};
+		const dog_b = {name:'Toby'};
+		${dog_a.name }, owned by ${dog_a.owner};
+		// If there is no owner, we can wrap some code ino a ${} and use again a `` and ${} to display a value
+		${dog_a.name } ${dog_a.owner ? `, ${dog_a.owner}` }
+	- You can even use a function inside the `` to render other `` to make things cleaner.
+
+
+
+

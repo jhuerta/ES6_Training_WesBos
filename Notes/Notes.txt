@@ -370,3 +370,4 @@ EXP METHOD (**)
 Object .entries() and .values() 
 ---------------------------
 const people = {juan: '39',miguel: '3', sofia:'1'}
+
