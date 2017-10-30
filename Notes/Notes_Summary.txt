@@ -4,7 +4,7 @@ NOTES SUMMARY
 
 ** TIPS **
 	> console.table()
-	> console.error
+	> console.error()
 	> an_array.map((o,i) => {});
 	> an_array.filter(o => o> VALUE);
 	>> Object.freeze(object)
@@ -17,8 +17,16 @@ NOTES SUMMARY
 	> any_element.addEventListener('the_event_like_click', function(){});\
 	> any_element.classList.toggle('class_name')
 	> any_element.classList.contains('class_name')
-	> any_element.classList.contains('class_name')
+	> any_element.classList.contains('class_name')	
 	> Use Array.from(querySelectorAll) to convert a NodeList that comes from a document.querySelectorAll
+	> Creating HTML elements:	
+		const info = document.querySelector('.info');
+		const description = document.createElement('p');
+		description.innerHTML = 'My name is blabla';
+		info.appendChild(description);
+	> dompurify to sanitize your code:
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/dompurify/0.8.2/purify.min.js'></script>
+	> arguments is a KEYWORD IN A FUNCTION!!!!! It is a sort of array with all the arguments passed
 
 ** VAR / CONST / LET **
 	- var can be used before they are defined, but they are UNDEFINED, it wont throw an error
@@ -92,7 +100,76 @@ NOTES SUMMARY
 		// If there is no owner, we can wrap some code ino a ${} and use again a `` and ${} to display a value
 		${dog_a.name } ${dog_a.owner ? `, ${dog_a.owner}` }
 	- You can even use a function inside the `` to render other `` to make things cleaner.
+	- Tagged functions -- Instead of the browser populating the tags, you can have a funciton to do the same, or make any modification internally,or even using the values as keys for a dictionary. The function gets an array with all the bits plus all the variables.
+		And most importantly, usa this to SANITIZE!!!!
+	  const sentence = function_name`Text 1 ${var1} text 2 ${var2}`;
+			function function_name(sentences,...values)
+			{
+				let str = '';
+				str = sentences.forEach((string, i) => {
+					str += string + values[i] || '';
+				});
+				return str;
+				/*
 
+				sentences.reduce((sentence, string, i) => {
+					return `${sentence}${string}${values[i] || ''}`
+				}), '');
 
+				*/
+			}
+	- Sanitizing your code:
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/dompurify/0.8.2/purify.min.js'></script>
+		function sanitize(strings,...values)
+		{
+			const dirty = sentences.reduce((sentence, string, i) => {
+					return `${sentence}${string}${values[i] || ''}`
+				}), '');
+			return DOMPurify.sanitize(dirty);
+		}
+		sanitize`Code with <img src='theimag' onload='alert('badcode')'>`;
 
+** STRINGS NEW METHODS
+	- .startsWith(string_to_look,number_caracters_to_look_after)
+	- .endsWith(string_to_look,number_caracters_to_crop_string_to)
+	- .includes()
+	- .repeat() // Can be used to left pad 
 
+** DESTRUCTURING
+	- 	const person = {name:'Juan',age:50};
+		const {name, age:theAge} = person; // This is equivalent to const name = person.name; const theAge = person.age;
+		const {name, age:theAge, lastname: thelastname = 'defaultValue'} = person; // If person does not have a lastname property, i twill use the defaultValue into a property called thelastname
+	- Destructuring array:
+		const person = ['Juan',39,'Computer Science'];
+		const [name, age, major] = person; // It will assign each component to those variables
+		const team = ['Juan','Hasmin','Miguel','Sofia'];
+		const [father,mather,...children] = team;
+	- Swaping objects
+		const one = 1; const two = 2;
+		[one,two]  =[two,one];
+	- Functions with args in any order and with default values:
+		function tip({amount, tip = 20, tax = 0.13}){//blablabla};
+		var amount = tip({tip : 10, amount: 5 });
+
+** entries == ITERATOR OF ARRAY
+	// entries retursn an iterator, with a next and a done properties.
+	var names = ['Juan','Miguel','Sofia'];
+	for(const [value,index] of names.entries())
+	{
+
+	}
+
+** FOR IN
+	- Returns the index
+	- It includes new things added to the array (not only the elements in the array, but also new properties or methods added!)
+
+** FOR OF 
+	- Best alternative for loops (foreach, for in or plain for loop)
+	- Can have continue, break
+	- Nice way of looping for array or other arrayish objects
+	- It cant be used in Objects! ==> conts applee = {color: 'red', size: 10};
+	- To be used with objects, you can polifill and use entries 
+	- Or, to be used wiht objexts, you can use keys (Object.keys(array_name));
+
+** Array methods
+	-- Array.from()
