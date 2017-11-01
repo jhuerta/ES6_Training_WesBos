@@ -30,6 +30,24 @@ NOTES SUMMARY
 	> dompurify to sanitize your code:
 		<script src='http://cdnjs.cloudflare.com/ajax/libs/dompurify/0.8.2/purify.min.js'></script>
 	> arguments is a KEYWORD IN A FUNCTION!!!!! It is a sort of array with all the arguments passed
+	> Quick browser setup:
+		npm init
+		npm install browser-sync --save-dev
+		under package.json/scripts node:
+			"server": "browser-sync start --directory --server --files '*.js, *.html, *.css'"
+		npm run server
+	> Inheritance review:
+		function Dog(name)
+		{
+			this.name = name;
+		}
+		
+		Dog.prototype.Bark = function()
+		{
+			console.log('I am' + this.name);
+		}
+
+		const myDog = new Dog('Tobby');
 
 ** VAR / CONST / LET **
 	- var can be used before they are defined, but they are UNDEFINED, it wont throw an error
@@ -176,7 +194,7 @@ NOTES SUMMARY
 		> Use for in loop and use the key to get the value: object[key];
 	- Or, to be used wiht objexts, you can use keys (Object.keys(array_name));
 
-** Array methods
+** ARRAY METHODS
 	- Array.from(object, mappingFunction): Convert an arrayish into an array
 	- Array.of(o1,o2,o3,o4) : Build an array out of values
 	- an_array.find(): an_array.find(el => { el.property === 'value'})
@@ -185,18 +203,18 @@ NOTES SUMMARY
 	- an_array.some(el => el === 'value'): Returns true if ANY element matches the condition
 	- an_array.every(el => el === 'value'): Returns true if EVENRY element matches the condition
 
-** Spread Operator (...values)
+** SPREAD OPERATOR (...VALUES)
 	- Applied over any iterable (arrays, strings, dom nodes ,arguments, objects ...)
 	- It will SPREAD an array into elements, which can be grouped back into an array
 	- [...array1,'el2',...array3] : This will concatenate arrays
 	- Can be use to copy (deep copy) an array: let new_array = [...old_array];
 	- [...arrayish] is equivalent to Array.from(arraish);
 
-** Rest Operator (...values)
+** REST OPERATOR (...VALUES)
 	- Used in grouping parameters in function definition ( function functionName(first, ...restParameters))
 	- Used also in destructuring [first, second, restOfNumbers] = [1,2,3,4,5,6,7,8,9];
 
-** Object Literals:
+** OBJECT LITERALS:
 	- If using a variable to create an object, no need to specify the property name if the variable name is the same:
 		> 	var name = 'Juan';
 			let person = {name: name}
@@ -212,7 +230,7 @@ NOTES SUMMARY
 			const pants = { [key]: value,[${key}Negative]: value};
 			// ${key}Negative: It is possible to compute key values
 
-** Promises
+** PROMISES
 	- A value-to-be in the future
 	- Usage:
 		> 	promise.then(toDoWhenDataIsReturned).catch(err => {console.log(err)});
@@ -232,14 +250,14 @@ NOTES SUMMARY
 					 .catch(err => {console.log(err)}); // err will be the 'here_the_object_err_to_return'
 	- Promises.All([promise1,promise2]).then(responses => { // responses is an array with one response per promise})
 
-** Symbol (new primitive)
+** SYMBOL (NEW PRIMITIVE)
 	- Symbol: Unique identifier out of descriptor at a unique time. Same descriptor, different symbols
 	- Useful to create unique identifiers as keys
 	- It is not possible to loop over an array of symbols:
 		> 	var syms = Object.getownPropertySymbls(arryayOfSymbols); // This is possible
 			const data = sysm.map(s => arryayOfSymbols[s]);
 
-** ESLint
+** ESLINT
 	- Installation:
 		> 	node and npm are installed (node -v and npm -v are working
 		> 	npm install -g eslint
@@ -262,7 +280,269 @@ NOTES SUMMARY
 		> Plugin     x: To lint the JS code inside HTML
 		> Sublime plugin:
 			* Install SublimeLinter AND SublimeLinter-contrib-lint
-		> Create hook in git to prevent submit code when does not comply with eslint
+		> Create hook in git to prevent submit code when does not comply with eslint:
+			* Rename .git/hook/commit-message.sample to .git/hook/commit-message
+			* Copy paste the code from 
+					https://github.com/wesbos/es6.io/blob/master/12%20-%20Code%20Quality%20with%20ESLint/commit-msg.txt
+			* Before commiting the code inside will run and prevent if lint does complain
+
+** JAVASCRIPT MODULES AND WEBPACK
+	- No need to ALWAYS use modules. Simpler things dont require modules
+	- If using modules, then you need/want to use webpack
+	- You can combine webpack with babel
+	- Module: Javascript file that can be shared among other files in an ordered manner
+	- Tooling: 
+		> npm: From your application, init and install npm modules
+		> webpack (this will allow to use import on browsers that dont support es6): 
+			* npm install webpack
+		> bable (this will convert es6 into es5 complaint code):
+			* npm install babel-loader babel-core babel-preset-es2015-native-modules --save-dev
+		> create webpack.config.js file:
+			* Add this code:
+				const webpack = require('webpack');
+				const nodeEnv = process.env.NODE_ENV || 'production';
+
+				module.exports = {
+				  devtool: 'source-map',
+				  entry: {
+				    filename: './app.js' <-- IMPORTANT - FIRST FILE IN YOUR APPLICATION
+				  },
+				  output: {
+				    filename: '_build/bundle.js' <-- WHERE IT IS COMPILED
+				  },
+				  module: {
+				    loaders: [
+				      {
+				        test: /\.js$/,
+				        exclude: /node_modules/,
+				        loader: 'babel-loader',
+				        query: {
+				          presets: ['es2015-native-modules']
+				        }
+				      }
+				    ]
+				  },
+				  plugins: [
+				    new webpack.optimize.UglifyJsPlugin({
+				      compress: {
+				        warnings: false
+				      },
+				      output: {
+				        comments: false
+				      },
+				      sourceMap: true
+				    }),
+				    new webpack.DefinePlugin({
+				      'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
+				    })
+				  ]
+				};
+		> Setup the build npm script in package.json:
+			* 
+				"scripts": {
+        			"build": "webpack --progress --watch"
+    			}
+    	> Run:
+    		* npm run build // build is the name we gave in the script file
+    						// notice the watch in the script! This task will run in the background
+    - Creating our own module:
+    	* Module file (located at ./src/config.js):
+    		const apiKey = 'the value to export';
+    		export default apiKey; // DEFAULT EXPORT - ONLY ONE DEFAULT EXPORT
+    		export const anyOtherThing = 'abc'; // NAME EXPORT
+    		export function sayHi() {//blablabla} // NAME EXPORT for function
+    		const name = 'Juan';
+    		const age= 39;
+    		export {name, age as NewAge}; //Exporting variables after being declared with different name
+
+    	* Client file:
+    		import any_name from './src/config'; // NOTICE THERE IS NO .JS
+    											// This is the default export. It will ALWAYS point to apiKey
+    		import { anyOtherThing,sayHi } from './src/config'; // NOTICE FOR NAME EXPORT THERE IS {}
+    		import {name as UserName, NewAge} // IMPORTING WITH A DIFFERENT NAME
+    - Other ways to bundle Javascript files (beside webpack)
+    	* SystemJS
+    		> You only need this code in your html:
+    			<script src="jspm.io/system@0.19.js"></script>
+    			<script>
+    				System.config({transpiler: 'babel'});
+    				System.import('./main.js');
+    			</script>
+    		> It can be just used in the browser. Easier to setup
+    		> To use something from npm, you dont need to install it, instead, use this:
+    			import {sum, kebabCase} from 'npm:lodash'; //notice the npm
+    		> The rest of import and export is same as the instructions above
+    		> Quite slow, good for testing!
+
+** BABEL
+	- Babel only works in syntax!! Not in a new methods
+	- Javascript compiler. Allows to write any JS of any version and it will translated into other lower versions of JS
+	- Install babel: npm install babel-cli (7.X or @next)
+	- In your package.json / scripts:
+				"scripts": {
+        			"build": "babel app.js --watch --out-file app-compiled.js"
+    			}
+    - Add plugins and presets:
+    	- Preset: collection of presets
+    	- Plugins: Tiny set of conversions (for new or specific JS syntax)
+    		> It needs to abe added under the babel node in your package.json file
+    	- Use babel-present-env to tell babel to what sort of browsers to convert:
+    		> npm install babel-preset-env
+    		>  In package.json, add node:
+					"babel": {
+						"presets": [
+							[
+								"env",
+								{
+									"targets": {
+										"browsers": [
+											"last 2 versions",
+											"safari >= 8"
+											]
+									}
+								}
+							]
+						],
+						"plugins": [
+							"transform-object-rest-spread"
+						]
+					},
+		- You can use a .babelrc instead of the babel node in package.json
+		- Run: npm run babel
+
+** POLYFILL
+	- Babel only works in syntax!! Not in a new methods
+	- For new methods/functions we need to polyfill
+	- Polyfill: If the browser does not give that function, we need to recreated it (polyfill)
+	- Using babel poyfill:
+		- npm install --save-dev babel-polyfill
+		- Add import "babel-polyfill" in your init first file
+	- Using Polyfill.io	(if not using modules)
+		- In your html, insert:
+			<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+** CLASSES
+	- Class Declaration
+		class Dog {//blabla}
+	- Class Expression:
+		const Dog = class {//blabla}
+	- Either way:
+		class Class_Name {
+			constructor(name){
+				this.name = name;	
+			}
+
+			Function_Name()
+			{
+				console.log(`My Name is ${this.name}`);
+			}
+
+			static info() { //Blablab} // This will be called as Dog.info() (not in each dog instance)
+
+			// Getters and Setters
+			get get_name() { return 'something'}; // we can use as myclassinstance.get_name;
+			set set_name(value) { this.someting = value;}; // we myclassinstance.set_name = 'something';
+		}
+	- Inheritance:
+		class Child_Class extends Parent_Class{
+			constructor()
+			{
+				super(); // Invocating te constructor of the parent (it will allow you to use 'this')
+			}
+		}
+	- Extending existing collection:
+		class MyCollection extends Array {
+			constructor{ super()}
+			MyMethod(){
+				this.push(); // Using a method from the parent
+			}
+		}
+** GENERATOR
+	- Syntax:
+		function* listPeople() // Notice using the *
+		{
+			yield 'One'; // yield: return for now, return and pause
+			yield 'Two';
+			yield 'Three';
+		}
+
+		var people = listPeople();
+		var generatorReturn = people.next(); // Run up to the first yield
+		generatorReturn.value // (actual yield return) 
+		generatorReturn.done // (informs of whether there are more values)
+	- Using generator for Ajax flow control:
+
+		functio coolajax(url)
+		{
+			fetch(url).then(data => data.json()).then(data => steps.next(data));
+			// By passing data to next, it will the return value of the yield coolajax;
+
+		}
+		
+		function* steps ()
+		{
+			const info1 = yield coolajax(url1);
+			const info2 = yield coolajax(url2 + '/' + info1.value);
+			const info3 = yield coolajax(url3 + '/' + info2.value);
+
+		}
+
+		const data = steps();
+		steps.next(); // Kicking it off
+	- Looping through generators:
+		function* multipleyields(){}
+		const values = multipleyields();
+		for(const value of values)
+		{
+			console.log(value); // For Of loop will call the next for you :D
+		}
+
+** PROXIES
+	- Override default behavior of an operation in an object
+		const person = {name: 'Juan'};
+		const personProxy = new Proxy(person,{
+			get(target,property){
+				// Here we can modify, inspect ...
+				return target[property];
+			},
+			set(target,property,value){
+				// Here we can modify, inspect ...
+				target[property] = value;
+			}
+
+		});
+
+		const phoneHandlers = {
+			get(target,property){
+				// Here we can modify, inspect ...
+				return target[property];
+			},
+			set(target,property,value){
+				// Here we can modify, inspect ...
+				target[property] = value;
+			}
+		};
+
+		const phoneNumbers = new Proxy({},phoneHandlers);
+		phoneNumbers.home = '456'; // When setting the value to the property, it will be inspected previously
+		phoneNumbers.other = '456';
+
+** SETS and WEAKSETS
+	- Set: Kind of with unique values, with a nice API:
+		> 	const numbers = new Set(['1','2','3'])
+			numbers.add(1);
+			numbers.delete(1);
+			numbers.size
+			numbers.clear()
+			numbers.has(1);
+			for(const number of numbers.values()){}
+			// keys and entries also present
+	- WeakSet: They clean themselves up (automatic garbage collected)
+		> const weakSauce = new WeakSet([dog1,dog2,dog3]);
+		> IT CAN ONLY CONTAINS OBJECTs (let dog1 = {name = 'Toby'})
+		> We can not loop with FOR OF loop
+		> There is not .clear method!
+	- If using an object in a weakset and the object is deleted, the weakset will deleted after a while (not the case with a set!!!!
 
 
 
