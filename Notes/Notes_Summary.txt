@@ -3,22 +3,25 @@ NOTES SUMMARY
 ------------------------------------------------------
 
 ** TIPS **
+	> fetch(url): To get JSON results from API as a promise
 	> console.table()
 	> console.error()
 	> an_array.map((o,i) => {});
 	> an_array.filter(o => o> VALUE);
-	>> Object.freeze(object)
+	> Object.freeze(object)
 		It will prevent you from modifying an object property
 		const person = {name: 'Juan'}; 
 		person.name = 'JuanH'; //(this is allowed)
 		Object.freeze(person);
 		person.name = 'JuanHB';// (this is not allowed)
 	> document.querySelector('. / #');
+	> document.querySelectorAll('. / #');
+	> Use Array.from(querySelectorAll) to convert a NodeList that comes from a document.querySelectorAll
 	> any_element.addEventListener('the_event_like_click', function(){});\
 	> any_element.classList.toggle('class_name')
+	> any_element.textContent
 	> any_element.classList.contains('class_name')
 	> any_element.classList.contains('class_name')	
-	> Use Array.from(querySelectorAll) to convert a NodeList that comes from a document.querySelectorAll
 	> Creating HTML elements:	
 		const info = document.querySelector('.info');
 		const description = document.createElement('p');
@@ -159,17 +162,108 @@ NOTES SUMMARY
 
 	}
 
-** FOR IN
+** FOR IN (Loop)
 	- Returns the index
 	- It includes new things added to the array (not only the elements in the array, but also new properties or methods added!)
 
-** FOR OF 
+** FOR OF (Loop)
 	- Best alternative for loops (foreach, for in or plain for loop)
 	- Can have continue, break
 	- Nice way of looping for array or other arrayish objects
 	- It cant be used in Objects! ==> conts applee = {color: 'red', size: 10};
-	- To be used with objects, you can polifill and use entries 
+	- To be used with objects:
+		> Polifill and use entries 
+		> Use for in loop and use the key to get the value: object[key];
 	- Or, to be used wiht objexts, you can use keys (Object.keys(array_name));
 
 ** Array methods
-	-- Array.from()
+	- Array.from(object, mappingFunction): Convert an arrayish into an array
+	- Array.of(o1,o2,o3,o4) : Build an array out of values
+	- an_array.find(): an_array.find(el => { el.property === 'value'})
+		> For multiple findings, use filter
+	- an_array.findIndex: an_array.findIndex(el => { el.property === 'value'}) : From the element, return the index in 	the array
+	- an_array.some(el => el === 'value'): Returns true if ANY element matches the condition
+	- an_array.every(el => el === 'value'): Returns true if EVENRY element matches the condition
+
+** Spread Operator (...values)
+	- Applied over any iterable (arrays, strings, dom nodes ,arguments, objects ...)
+	- It will SPREAD an array into elements, which can be grouped back into an array
+	- [...array1,'el2',...array3] : This will concatenate arrays
+	- Can be use to copy (deep copy) an array: let new_array = [...old_array];
+	- [...arrayish] is equivalent to Array.from(arraish);
+
+** Rest Operator (...values)
+	- Used in grouping parameters in function definition ( function functionName(first, ...restParameters))
+	- Used also in destructuring [first, second, restOfNumbers] = [1,2,3,4,5,6,7,8,9];
+
+** Object Literals:
+	- If using a variable to create an object, no need to specify the property name if the variable name is the same:
+		> 	var name = 'Juan';
+			let person = {name: name}
+			let person_2 = {name}
+			// Person and person person_2 are equivalent
+		>	var modal = { mymethod: function(){//blah blah blah}} ;
+			var modal_2 = { mymethod() {//blah blah blah}} ;
+			// modal and modal_2 are equivalent
+	- Computer Property Name: 
+		> 	const key = 'color';
+			const value = 'blue';
+			const valueNegative = 'red';
+			const pants = { [key]: value,[${key}Negative]: value};
+			// ${key}Negative: It is possible to compute key values
+
+** Promises
+	- A value-to-be in the future
+	- Usage:
+		> 	promise.then(toDoWhenDataIsReturned).catch(err => {console.log(err)});
+			function toDoWhenDataIsReturned(data)
+			{
+				var jsonData = data.json(); //Important to convert data into json!!!
+			}
+	- Creating a promise:
+		>	const myPromise = new Promise((resolve,reject) => {
+				// Check if it should be OK
+				resolve('here_the_object_data_to_return');
+				// Check if it should be OK
+				reject('here_the_object_err_to_return');
+			});
+
+			myPromise.then( data => {console.log(data)}) // data will be the 'here_the_object_data_to_return'
+					 .catch(err => {console.log(err)}); // err will be the 'here_the_object_err_to_return'
+	- Promises.All([promise1,promise2]).then(responses => { // responses is an array with one response per promise})
+
+** Symbol (new primitive)
+	- Symbol: Unique identifier out of descriptor at a unique time. Same descriptor, different symbols
+	- Useful to create unique identifiers as keys
+	- It is not possible to loop over an array of symbols:
+		> 	var syms = Object.getownPropertySymbls(arryayOfSymbols); // This is possible
+			const data = sysm.map(s => arryayOfSymbols[s]);
+
+** ESLint
+	- Installation:
+		> 	node and npm are installed (node -v and npm -v are working
+		> 	npm install -g eslint
+		> 	npm install -g eslint-plugin-html
+			npm install -g eslint-config-airbnb
+			npm install -g eslint-plugin-jsx-a11y
+			npm install -g eslint-plugin-react
+			npm install eslint-plugin-import -g
+		> create .eslintrc for settings
+		> use airbnb style: "extends": "airbnb"
+			* Check github site: https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb
+			* TIP: npm install -g eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y
+		> run: eslint file_to_check --fix
+		> Add a global .eslintrc globally in your home directory (this will be completely overriden by a local .eslintrc)
+		> Per file, you can enable or disable rules. For the whole file, or per line (enabling and disabling in the following line)
+			/* globals var_name */ // This will specify global variables in a file
+			/* eslint-disable eslint-rule-goes-here*/
+			/* eslint-enable eslint-rule-goes-here*/
+			/* eslint-disabld */ // It will completely disable ALL THE ESLINT!
+		> Plugin     x: To lint the JS code inside HTML
+		> Sublime plugin:
+			* Install SublimeLinter AND SublimeLinter-contrib-lint
+		> Create hook in git to prevent submit code when does not comply with eslint
+
+
+
+

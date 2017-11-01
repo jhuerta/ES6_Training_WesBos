@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function filterarray() {
+
+    let people = [
+    {name: 'juan', age:39, id: 0},
+    {name: 'miguel', age:3, id: 1},
+    {name: 'sofia', age:1, id: 2},
+    {name: 'hasmin', age:38, id: 3},
+    ];
+
+    let children = people.filter(p => p.age <5);
+    console.log(children);
+
+    function overwrite(o)
+    {
+        o.name = 'juan';
+        console.log(o);
+    }
+
+    let person = { name: 'Miguel',age: 3};
+    console.log(person);
+    overwrite(person);
+    console.log(person);
+
+
+
+}
+
+filterarray();
+</script>
+
+</html>
