@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+
+function cathErrors(fn, errorHandler) {
+    return function(...name) {
+        return fn(...name).catch(errorHandler);
+    };
+}
+
+function handlethis(err) {
+    console.log('An error has beenfound');
+    console.log(err);
+}
+
+const wrappederrors = cathErrors(anyFunctionThatHasPromisesInside, handlethis);
+
+wrappederrors('testing this', 'second argment');
+
+function breath(amount) {
+        return new Promise((resolve, reject) => {
+            if (amount < 500) {
+                reject(`${amount} is too small of a value`);
+            }
+            setTimeout(() => resolve(`Done for ${amount} ms`), amount);
+
+        });
+
+    }
+
+async function dealingwithexecptions(myargument, otherargument) {
+    console.log(`User has passed ${myargument}`);
+    console.log(`Second argument ${otherargument}`);
+    var r = await breath(700);
+    console.log(r);
+    r = await breath(800);
+    console.log(r);
+
+    r = await breath(100);
+    console.log(r);
+
+    var info = await (await fetch('https://api.github.com/users/jhuerta')).json();
+    console.log(info);
+
+}
+
+
+</script>
+
+</html>

@@ -48,6 +48,8 @@ NOTES SUMMARY
 		}
 
 		const myDog = new Dog('Tobby');
+	> setInterval(functionToRun, intervalInMs);
+	> setTimeout(functionToRun, waitMs);
 
 ** VAR / CONST / LET **
 	- var can be used before they are defined, but they are UNDEFINED, it wont throw an error
@@ -250,6 +252,64 @@ NOTES SUMMARY
 					 .catch(err => {console.log(err)}); // err will be the 'here_the_object_err_to_return'
 	- Promises.All([promise1,promise2]).then(responses => { // responses is an array with one response per promise})
 
+** PROMISYFING (and ASYNC/AWAIT) CALLBACK BASED FUNCTIONS
+	- You can use es6promisify library
+	- Recipe:
+		> 	methodWithCallBack(successFunction,errorFunction);
+			function methodWithCallBackPromisified()
+			{
+				return new Promise((resolve,reject) => {
+					methodWithCallBack(resolve, reject);
+				});
+			}
+			
+			methodWithCallBackPromisified.then(data => {//blablabla})
+
+			function async go()
+			{
+				var result = await methodWithCallBackPromisified();
+			}
+
+** CLASS PROPERTIES
+
+** ASYNC and AWAIT
+	- It is based on promise
+	- If a function is using a promise inside, we can make that function async, and append await before of the promise method
+
+			function breathe(ms){
+				return new Promise((resolve,reject) => {
+					setTimeout(() => resolve('Done'),amount);
+				});
+			}
+
+			// The method below (waitandgo) makes use of promises
+			async function waitandgo(ms){
+				var r100 = await breath(100);
+				var r200 = await breath(200);
+			}
+	- Await on multiples:
+		async function go(){
+			const p1 = fetch('abc');
+			const p2 = fetch('cde');
+			const result = await Promise.all([p1,p2]);
+
+		}
+
+	- High order function to wrap catch errors:
+		function cathErrors(fn, errorHandler) {
+				return function(...name) {
+				return fn(...name).catch(errorHandler);
+			};
+		}
+
+		function handlethis(err) {
+			console.log('An error has beenfound');
+			console.log(err);
+		}
+
+		const wrappederrors = cathErrors(anyFunctionThatHasPromisesInside, handlethis);
+	
+
 ** SYMBOL (NEW PRIMITIVE)
 	- Symbol: Unique identifier out of descriptor at a unique time. Same descriptor, different symbols
 	- Useful to create unique identifiers as keys
@@ -428,9 +488,13 @@ NOTES SUMMARY
 		const Dog = class {//blabla}
 	- Either way:
 		class Class_Name {
+
 			constructor(name){
 				this.name = name;	
 			}
+
+			// PROPOSED CLASSED ATTRIBUTES
+			myclassproperty = 0; // This is not yet in ES6 (but it is likely to be included)
 
 			Function_Name()
 			{
@@ -544,6 +608,37 @@ NOTES SUMMARY
 		> There is not .clear method!
 	- If using an object in a weakset and the object is deleted, the weakset will deleted after a while (not the case with a set!!!!
 
+** MAPS
+	- Dictionary, with ANYTHING as a key
+	- It allows that, having an object as a key, store data about the object
+	- the_map.has(key) , the_map.get(key) , the_map.delete(key), the_map.clear() to be used with keys
+	- the_map.set(key, value)
+	- To traverse"
+		> map.forEach((value,key) => {value, jey})
+		> for(const (value,key) of map) {}
+	- WeakMap: 
+		> No size, no enumerable (no loop over), the objects in the WeakMap will be auto deleted if not existing anymore outsde
 
-
+** NEW METHODS
+	- padStart:
+		> 'something'.padStart(11,'X');// It will preapend any character until complete 4(or blank as default)
+		> XXSomething
+	- padEnd: 
+		> 'something'.padEnd(15,'>');// It will append any character until total length is 2 (or blank as default)
+		> something>>>>>>
+	- Exponential Operator: 
+		> 2**3 : 2 to the power of 3 (2^3)
+	- Includes:
+		> [1,2,3].includes(2); // true or false
+	- Trailing Commans:
+		const numbers = [1,2,3,4,]; // Already existing
+		const person = {name: 'Juan',age: 39,}; // Already existing
+		function family(mom,dad,children,){//blablabla} // NEW IN ES6
+	- var person = {name: 'Juan',age: 39}
+		> Object.entries(person)
+			* [['name','Juan'],['age',39]]
+		> Object.keys(person);
+			* ['name','age']
+		> Object.values(person)
+			* ['Juan',39]
 

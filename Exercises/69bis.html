@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+function entriesandvalues() {
+
+    function breath(amount) {
+        return new Promise((resolve) => {
+            setTimeout(() => { resolve(`Done: ${amount}`) }, amount);
+
+        });
+    }
+
+    async function waitandgo(amount)
+    {   return await breath(amount);
+    }
+
+    waitandgo(100).then(d => console.log(d));
+    waitandgo(200).then(d => console.log(d));
+    waitandgo(300).then(d => console.log(d));
+
+    return;
+
+    breath(5000).then(data => {
+        console.log(data);
+        return breath(500);
+    }).then(data => {
+            console.log(data);
+            return breath(100);
+        }
+
+    ).then(data => {
+        console.log(data);;
+        return breath(300);
+    }).then(data => {
+        console.log(data);
+        return breath(900);
+    }).then(data => {
+        console.log(data);
+        return breath(200);
+    }).then(data => {
+        console.log(data);
+        return breath(400);
+    }).then(data => {
+        console.log(data)
+    });
+
+
+
+}
+
+entriesandvalues();
+</script>
+
+</html>
